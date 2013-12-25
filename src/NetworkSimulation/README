@@ -1,0 +1,41 @@
+Yu Zhao, Yulun Li
+
+1. We constructed 100x100 networks, based on Klienberg's paper, and the network is wrapped (there are no actual boundaries). Result of 5000 messages:
+Density: 1.0
+Mean 19.7, Median 20, Success rate: 1.0
+Density: 0.8
+Mean 16.4, Median 16, Success rate: 0.41
+Density: 0.6
+Mean 15.15, Median 15, Success rate: 0.194
+Density: 0.5
+Mean 9.1, Median 8.5, Success rate: 0.04.4
+
+2. Adding preferential attachment, we built a heuristic that every node is guaranteed to get an outlink to a node with Manhattan distance greated than 1. The probability of getting the respective inlink no longer depends on the Manhattan distance, but the number of inlinks the node has. Since the connection is randomly sampled, we added a weight/booster by the square of the number of inlinks. Thus, the network has a tree-like structure where the nodes that 'happen to' get some inlinks in the beginning of the simulation have greater odds than other nodes to get more inlinks. Other conditions are the same with part one, such as wrapped network, 1000 messages. Result:
+Density: 1.0
+Mean 20.8, Median 21, Success rate: 1.0
+Density: 0.8
+Mean 17.9, Median 17.5, Success rate: 0.256
+Density: 0.6
+Mean 10, Median 10, Success rate: 0.05
+Density: 0.5
+Mean 9.9, Median 8, Success rate: 0.03
+
+3. In Kleinberg's model, the neighbor with Manhattan distance greater than 1 is not a mutual connection, that is, the message can only be delivered in one direction. We think this is not realistic because in reality, message can go both ways between friends. After we make them to be 'real' friends, this is the result:
+Kleinberg
+Density: 1.0
+Mean 5.4, Median 15, Success rate: 1.0
+Density: 0.8
+Mean 13.5, Median 13, Success rate: 0.46
+Density: 0.6
+Mean 11, Median 11, Success rate: 0.14
+Density: 0.5
+Mean 9.1, Median 8.5, Success rate: 0.04
+Preferential Attachment
+Density: 1.0
+Mean 17.4, Median 17, Success rate: 1.0
+Density: 0.8
+Mean 13.8, Median 13, Success rate: 0.346
+Density: 0.6
+Mean 9.8, Median 9, Success rate: 0.12
+Density: 0.5
+Mean 8.2, Median 8, Success rate: 0.08

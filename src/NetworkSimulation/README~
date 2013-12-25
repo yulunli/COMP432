@@ -1,0 +1,26 @@
+Yu Zhao, Yulun Li
+
+1. We constructed a network, based on Klienberg's paper, and the network is wrapped (there are no actual boundaries). Every node in the network is connected with nodes with Manhattan distance of 1 and has an outlink to a node elsewhere in the network. This network does not have a dead-end because it's wrapped and in fact, the message will always reach the recipient, because the worst case scenario is that the message moves one node a time until reaching the recipient. Result:
+100x100
+Mean 20.4, Median 20
+200x200
+Mean 29.6, Median 29
+
+2. Adding preferential attachment, we built a heuristic that every node is guaranteed to get an outlink to a node with Manhattan distance greated than 1. The probability of getting the respective inlink no longer depends on the Manhattan distance, but the number of inlinks the node has. Since the connection is randomly sampled, we added a weight/booster by the square of the number of inlinks. Thus, the network has a tree-like structure where the nodes that 'happen to' get some inlinks in the beginning of the simulation have greater odds than other nodes to get more inlinks. Other conditions are the same with part one, such as wrapped network, 1000 messages. Result:
+100x100
+Mean 21, Median 21
+200x200
+Mean 33.7, Median 33
+
+3. In Klienberg's model, the neighbor with Manhattan distance greater than 1 is not a mutual connection, that is, the message can only be delivered in one direction. We think this is not realistic because in reality, message can go both ways between friends. After we make them to be 'real' friends, this is the result:
+Klienberg:
+100x100
+Mean 15.5, Median 15
+200x200
+Mean 22.1, Median 22
+Yule (Preferential Attachment):
+100x100
+Mean 17.1, Median 17
+200x200
+Mean 28.4, Median 28
+The result fits out expectation because after the connection becomes both-directional, the network gets more links so the message can be faster transmitted. 
